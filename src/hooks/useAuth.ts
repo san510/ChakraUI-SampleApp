@@ -4,7 +4,6 @@ import axios from "axios";
 
 import { User } from "../types/api/user";
 import { useMessage } from "./useMessage";
-import { title } from "process";
 
 export const useAuth = () => {
   const navitage = useNavigate();
