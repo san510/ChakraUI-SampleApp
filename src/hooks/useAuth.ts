@@ -4,10 +4,12 @@ import axios from "axios";
 
 import { User } from "../types/api/user";
 import { useMessage } from "./useMessage";
+import { useLoginUser } from "../hooks/useLoginUser";
 
 export const useAuth = () => {
   const navitage = useNavigate();
   const { showMessage } = useMessage();
+  const { setLoginUser } = useLoginUser();
 
   const [loading, setLoading] = useState(false);
 
@@ -19,6 +21,9 @@ export const useAuth = () => {
         .get<User>(`https://jsonplaceholder.typicode.com/users/${id}`)
         .then((res) => {
           if (res.data) {
+            // Contextへユーザー情報を設定
+            const isAdmin = res.data.id === 10 ? true : false;
+            setLoginUser({ ...res.data, isAdmin });
             showMessage({ title: "ログインしました", status: "success" });
             navitage("/home");
           } else {
@@ -32,7 +37,7 @@ export const useAuth = () => {
           setLoading(false);
         });
     },
-    [navitage, showMessage]
+    [navitage, showMessage, setLoginUser]
   );
   return { login, loading };
 };

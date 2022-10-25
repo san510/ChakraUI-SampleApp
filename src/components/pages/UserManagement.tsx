@@ -10,19 +10,24 @@ import {
 import { UserCard } from "../organisms/user/UserCard";
 import { useAllUsers } from "../../hooks/useAllUsers";
 import { useSelectUser } from "../../hooks/useSelectUser";
+import { useLoginUser } from "../../hooks/useLoginUser";
 import { UserDetailModal } from "../organisms/user/UserDetailModal";
 
 export const UserManagement: FC = memo(() => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { getUsers, users, loading } = useAllUsers();
   const { onSelectUser, selectedUser } = useSelectUser();
-  console.log(selectedUser);
+  const { loginuser } = useLoginUser();
+  console.log(loginuser);
 
   useEffect(() => getUsers(), []);
 
-  const onClickUser = useCallback((id: number) => {
-    onSelectUser({ id: id, users: users, onOpen });
-  }, []);
+  const onClickUser = useCallback(
+    (id: number) => {
+      onSelectUser({ id: id, users: users, onOpen });
+    },
+    [users]
+  );
 
   return (
     <>
