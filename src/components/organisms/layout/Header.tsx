@@ -15,6 +15,7 @@ export const Header: FC = memo(() => {
     []
   );
   const onClickSetting = useCallback(() => navigate("/home/setting"), []);
+  const onClickLogout = useCallback(() => navigate("/"), []);
 
   return (
     <>
@@ -48,6 +49,9 @@ export const Header: FC = memo(() => {
           </Box>
           <Link onClick={onClickSetting}>設定</Link>
         </Flex>
+        <Box>
+          <Link onClick={onClickLogout}>ログアウト</Link>
+        </Box>
         <MenuIconButton onOpen={onOpen} />
       </Flex>
       <MenuDrawer
